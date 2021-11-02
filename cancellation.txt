@@ -1,0 +1,2 @@
+SELECT Cancellation.[Itin Num], Cancellation.Dest, Cancellation.Residence, Cancellation.[Cancelled At], Cancellation.[Created At], Cancellation.[Begin Date], Cancellation.[End Date], DateDiff("d",[Begin Date],[End Date]) AS Nights, Cancellation.Status
+FROM Cancellation;
