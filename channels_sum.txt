@@ -1,0 +1,5 @@
+SELECT IIf([Begin Date] Between [ContractStartdate] And [ContractEndDate] And [Membership Num]=691684,"DiamondP4",IIf([Begin Date] Between [ContractStart] And [ContractEnd] And [Membership Num]=691684,"DiamondP5",[Clubs])) AS Channels, Format([Created At],"yyyy - m") AS [Date], Sum(UsageRevenueQntsTnP.Days) AS NTS, Sum(UsageRevenueQntsTnP.[Total Sale]) AS [Total Sales]
+FROM DiamondPhase5 RIGHT JOIN (UsageRevenueQntsTnP LEFT JOIN DiamondPhase4 ON UsageRevenueQntsTnP.UID = DiamondPhase4.property_uid) ON DiamondPhase5.property_uid = UsageRevenueQntsTnP.UID
+GROUP BY IIf([Begin Date] Between [ContractStartdate] And [ContractEndDate] And [Membership Num]=691684,"DiamondP4",IIf([Begin Date] Between [ContractStart] And [ContractEnd] And [Membership Num]=691684,"DiamondP5",[Clubs])), Format([Created At],"yyyy - m")
+HAVING (((Format([Created At],"yyyy - m"))>="2021 - 1") AND ((Sum(UsageRevenueQntsTnP.[Total Sale]))>0))
+ORDER BY Format([Created At],"yyyy - m");
