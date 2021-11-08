@@ -1,0 +1,60 @@
+---
+title: "Capstone"
+output:
+  beamer_presentation: default
+  powerpoint_presentation: default
+  slidy_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+### Required Libraries
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(psych)
+library(readxl)
+install.packages("LaTeX")
+```
+## Uploading the data into R
+
+```{r}
+library(readxl)
+QntsBfrCovid <- read_excel("/Volumes/External HD/CSU/MIS-581 Capstone/Module 6/quintessdata.xlsx", 
+                                 sheet = "CoupleYearsbeforeCovid", col_types = c("numeric", 
+                                                                                 "numeric", "text", "text", "numeric", 
+                                                                                 "numeric", "date", "date", "date", 
+                                                                                 "numeric", "numeric", "text"))
+head(QntsBfrCovid)
+
+```
+## Learing the dataset
+```{r}
+str(QntsBfrCovid)
+```
+## Selecting the targeted variables
+```{r}
+QntsBfrCovid <- QntsBfrCovid %>% filter(str_detect(DestName, "San Diego") | str_detect(DestName, "Wine Country") 
+                                         | str_detect(DestName, "Orlando") | str_detect(DestName, "Costa Rica") 
+                                         | str_detect(DestName, "Charleston"))
+QntsBfrCovid
+```
+## The highest-demand destinations (San Diego, Wine Country, Orlando, Costa Rica, and Charleston)  
+
+```{r}
+dim(QntsBfrCovid)
+str(QntsBfrCovid)
+```
+## Grouping the dataset by DestName and summarised by mean TotalSales
+```{r}
+QntsBfrCovid %>% group_by(DestName) %>% summarise(mean(Nts))
+describe.by(QntsBfrCovid, QntsBfrCovid$DestName)
+```
+
+
+
+
